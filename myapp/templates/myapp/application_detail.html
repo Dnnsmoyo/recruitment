@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.css">
+<script src="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.js"></script>
+<script src="extensions/editable/bootstrap-table-editable.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<h1>Application details for {{object.user}} </h1><button class="btn btn-primary">Accept</button><button class="btn btn-danger">Reject</button>
+
+<article>
+  <h2>About</h2>
+  <p>{{object.about_you}}</p>
+</article>
+
+<article>
+  <h2>Experience</h2>
+  <p>{{object.experience}}.</p>
+</article>
+
+<article>
+  <h2>Qualiications</h2>
+  <p>{{object.highest_qualification}}</p>
+</article>
+<h2>School</h2>
+  <p>{{object.school}}</p>
+</body>
+</html>
+
+     
+<script>
+
+const from = company
+
+
+
+
+const to = {{object.phone}}
+
+
+const text = 'Your application for {{object.vacancy}} post was accepted successfully’
+
+
+const text2 = 'Your application for {{object.vacancy}} post  has been rejected.’
+
+Function accept(){
+
+
+vonage.message.sendSms(from, to, text, (err, responseData) => {
+
+
+   if (err) {
+
+
+       console.log(err);
+
+
+   } else {
+
+
+       if(responseData.messages[0]['status'] === "0") {
+
+
+           console.log("Your application for {{object.vacancy}} post was accepted successfully.");
+
+
+       } else {
+
+
+           console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+
+
+       }
+
+
+   }
+
+
+})
+}
+Function reject(){
+
+
+vonage.message.sendSms(from, to, text, (err, responseData) => {
+
+
+   if (err) {
+
+
+       console.log(err);
+
+
+   } else {
+
+
+       if(responseData.messages[0]['status'] === "0") {
+
+
+           console.log("Your application for {{object.vacancy}} post was rejected.");
+
+
+       } else {
+
+
+           console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+
+
+       }
+
+
+   }
+
+
+})
+}
+
+
+</<script>
+
+
+
+
+
+
+>
+        
