@@ -9,6 +9,9 @@ class Vacancy(models.Model):
     responsbilities = models.TextField()
     deadline=models.DateTimeField()
     
+    def __str__(self):
+       return self.job_title
+       
 class Application(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     vacancy = models.ForeignKey(Vacancy,max_length=100,on_delete=models.CASCADE)
@@ -18,6 +21,9 @@ class Application(models.Model):
     about_you = models.TextField()
     phone = models.IntegerField()
     upload_resume=models.FileField(upload_to='media')
+    
+    def __str__(self):
+       return self.vacancy
 
 class Rejected(models.Model):
     applicants = models.ForeignKey(Application,on_delete=models.CASCADE)

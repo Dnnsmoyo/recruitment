@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.http import HttpResponse
@@ -15,8 +15,47 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated  # <-- Here
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
+import vonage
+from django.contrib.auth import logout
 
+client = vonage.Client(key="84053de6", secret="858ea23fe6817f6c")
+sms = vonage.Sms(client)
 
+def accept(request):
+    if request.method =='POST':
+        acceptresponseData = sms.send_message(
+            {
+                "from": "Vonage APIs",
+                "to": "263777250175",
+                "text": "Your application was successful",
+            }
+        )
+
+        if acceptresponseData["messages"][0]["status"] == "0":
+            print("Message sent successfully.")
+        else:
+            print(f"Message failed with error: {acceptresponseData['messages'][0]['error-text']}")
+        
+def reject(request):
+    if request.method =='POST':
+        rejectresponseData = sms.send_message(
+            {
+                "from": "Vonage APIs",
+                "to": "263777250175",
+                "text": "Your application was rejected",
+            }
+        )
+
+        if rejectresponseData["messages"][0]["status"] == "0":
+            print("Message sent successfully.")
+        else:
+            print(f"Message failed with error: {rejectresponseData['messages'][0]['error-text']}")
+            
+def logout_view(request):
+    logout(request)
+    # Redirect to a success page.
+    return redirect('/')
+      
 class VacancyDetailView(DetailView):
     # specify the model to use
     model = Vacancy
@@ -34,18 +73,24 @@ class VacancyCreateView(CreateView):
     fields = '__all__'
     
 def admin_panel(request):
-   
-   return render(request,'myapp/admin_panel.html')
-   
-class UserCreate(CreateView):
-   
-    # specify the model for create view
-    model = User
-    success_url='/'
-  
-    # specify the fields to be displayed
-  
-    fields = ['username','first_name','last_name','email','password']
+   vac = Vacancy.objects.all()
+   app = Application.objects.all() 
+   return render(request,'myapp/admin_panel.html',{'vac':vac,'app':app})
+
+# signup fupnction
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/')
+        else:
+            form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
     
 def index(request):
     return render(request,'index.html')
@@ -75,6 +120,8 @@ class VacancyList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
         
 class VacancyDetail(APIView):
     """

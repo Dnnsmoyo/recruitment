@@ -1,0 +1,28 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Logout</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/485d3b1e13.js" crossorigin="anonymous"></script>
+</head>
+<body><br>
+<div class="container">
+<div class="card shadow-lg p-3 mb-5 sm-white rounded mb-0">
+  <div class="card-body" style="padding-bottom:70%;height:20%"><form method ="post">{% csrf_token %}
+<center><h1>Logout</h1><br>{% for field in form %}
+{{field.label_tag}}
+{{field}}<br><br><br>
+{% endfor %}
+<input type="submit" value="submit" class="btn btn-primary btn-lg">
+</form></center> or <a style="font-size:30px" href='/accounts/login'>Login</a></div>
+</div>
+</div>
+</body>
+</html>

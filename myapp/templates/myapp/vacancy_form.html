@@ -1,3 +1,7 @@
+
+ <a style="font-size:25px;text-decoration:none;" class="btn btn-primary" href="/">Home</a>
+ <a style="font-size:25px;text-decoration:none;" class="btn btn-primary" href="{% url 'logout' %}">Logout</a> 
+  <a style="font-size:25px;text-decoration:none;" class="btn btn-primary" href="#">Vacancy</a> 
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Save">

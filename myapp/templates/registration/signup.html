@@ -1,0 +1,13 @@
+
+<form method="POST" enctype="multipart/form-data">
+  
+    <!-- Security token -->
+    {% csrf_token %}
+  
+    <!-- Using the formset -->
+    {{ form.as_p }}
+      
+    <input type="submit" value="Submit">
+</form>
+<a style="font-size:35px;text-decoration:none;" class="btn btn-primary" href="{% url 'login' %}">Login</a> or 
+ <a style="font-size:35px;text-decoration:none;" class="btn btn-primary" href="/">Home</a>

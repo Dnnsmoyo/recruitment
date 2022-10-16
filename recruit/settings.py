@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-k5n8b9oq^hjr(u^+$%y15+2j_7-ar6#%q1fb)%=^(cex)i@9&u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'myapp',
 ]
 SITE_ID = 1
+LOGIN_REDIRECT_URL='/'
+SIGNUP_REDIRECT_URL='/'
+LOGOUT_REDIRECT_URL='/'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
